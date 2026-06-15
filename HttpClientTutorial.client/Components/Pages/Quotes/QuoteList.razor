@@ -1,0 +1,36 @@
+﻿@page "/quotes"
+@page "/quoteLists"
+@using System.Text.Json
+
+
+@inject QuoteApiService QuoteApiService;
+
+
+<h3>QuoteList</h3>
+
+<pre>
+    @(JsonSerializer.Serialize(Quotes, new JsonSerializerOptions {WriteIndented = true})) 
+</pre>
+
+@code {
+    public List<Models.Quote> Quotes  { get; set; } = new();
+
+    private async Task LoadQuotes()
+    {
+        var response = await QuoteApiService.GetAllQuotes();
+        if (response is not null)
+        {
+            Quotes = [.. response.quotes];
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // return base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            await this.LoadQuotes();
+            StateHasChanged();
+        }
+    }
+}
