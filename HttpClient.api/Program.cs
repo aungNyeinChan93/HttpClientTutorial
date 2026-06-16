@@ -1,4 +1,5 @@
 using HttpClient.Database;
+using HttpClient.domain.Features.Email;
 using HttpClient.domain.Features.Game;
 using HttpClient.domain.Features.Manager;
 using HttpClient.GameStoreDb.Models;
@@ -33,8 +34,18 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+//FluentEmail
+string email = builder.Configuration["EmailSetting:Email"]!;
+string emailAppPassword = builder.Configuration["EmailSetting:Password"]!;
+builder.Services.AddFluentEmail(email)
+    .AddSmtpSender("smtp.gmail.com", 587, email, emailAppPassword);
+
+
+//Services
 builder.Services.AddScoped<IManagerService,ManagerService>();
 builder.Services.AddScoped<GameService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 var app = builder.Build();

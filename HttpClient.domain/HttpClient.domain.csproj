@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
+    <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HttpClient.Database\HttpClient.Database.csproj" />
     <ProjectReference Include="..\HttpClient.GameStoreDb\HttpClient.GameStoreDb.csproj" />
     <ProjectReference Include="..\HttpClient.shared\HttpClient.shared.csproj" />
