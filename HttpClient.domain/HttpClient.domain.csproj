@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HttpClient.Database\HttpClient.Database.csproj" />
+    <ProjectReference Include="..\HttpClient.GameStoreDb\HttpClient.GameStoreDb.csproj" />
     <ProjectReference Include="..\HttpClient.shared\HttpClient.shared.csproj" />
   </ItemGroup>
 

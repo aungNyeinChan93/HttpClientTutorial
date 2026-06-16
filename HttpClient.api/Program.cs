@@ -1,5 +1,7 @@
 using HttpClient.Database;
+using HttpClient.domain.Features.Game;
 using HttpClient.domain.Features.Manager;
+using HttpClient.GameStoreDb.Models;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
@@ -16,7 +18,13 @@ builder.Services.AddDbContext<AppDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
+builder.Services.AddDbContext<GameStoreDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GameStore"));
+});
+
 builder.Services.AddScoped<IManagerService,ManagerService>();
+builder.Services.AddScoped<GameService>();
 
 
 var app = builder.Build();
