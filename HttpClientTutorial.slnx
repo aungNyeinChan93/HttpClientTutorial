@@ -3,8 +3,11 @@
     <File Path="FluentEmail.md" />
     <File Path="Notes.md" />
     <File Path="Scaffolding.md" />
+    <File Path="Test.txt" />
   </Folder>
   <Project Path="HttpClient.api/HttpClient.api.csproj" Id="67e1883e-151a-4852-a1cb-237a4ad174df" />
+  <Project Path="Httpclient.AuthDatabase/Httpclient.AuthDatabase.csproj" Id="6edebddb-8062-4447-b53f-be9ed8c848df" />
+  <Project Path="Httpclient.CookieAuth.WebApi/Httpclient.CookieAuth.WebApi.csproj" Id="02e1b06d-cdef-4894-93e2-14e86bb8de8f" />
   <Project Path="HttpClient.Database/HttpClient.Database.csproj" Id="b5494e4e-b85a-462d-afec-f5aebf4f1fb1" />
   <Project Path="HttpClient.domain/HttpClient.domain.csproj" Id="60786eb9-ec8a-429b-abbe-288e853703ab" />
   <Project Path="HttpClient.GameStoreDb/HttpClient.GameStoreDb.csproj" Id="0b96ffd0-a184-4abe-b251-cd0f7af30f43" />

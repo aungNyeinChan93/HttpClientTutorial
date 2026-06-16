@@ -1,4 +1,5 @@
-﻿using HttpClient.Database.Entities;
+﻿using Httpclient.AuthDatabase.Models;
+using HttpClient.Database.Entities;
 using HttpClient.domain.Dtos;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace HttpClient.domain.Mappers
 {
     public static class Mapper
     {
+        //TeamDto
         public static TeamDto Change(this Team team)
         {
             return new TeamDto
@@ -26,6 +28,8 @@ namespace HttpClient.domain.Mappers
             };
         }
 
+
+        //ManagerDto
         public static ManagerDto Change(this Manager manager)
         {
             return new ManagerDto
@@ -41,6 +45,17 @@ namespace HttpClient.domain.Mappers
                     CreatedAt = manager.Team.CreatedAt
                 } : null,
                 CreateAt = manager.CreateAt
+            };
+        }
+
+        public static UserDto Change(this User user)
+        {
+            return new UserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                CreatedAt = user.CreatedAt  
             };
         }
     }
