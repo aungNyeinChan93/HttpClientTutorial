@@ -35,7 +35,7 @@ Microsoft.EntityFrameworkCore.SqlServer \
 
 # option 5
 dotnet ef dbcontext scaffold `
-"Data Source=DESKTOP-8CJL57G\SQLEXPRESS;Initial Catalog=GameStore;User ID=sa;Password=Anc@123;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False" `
+"Data Source=DESKTOP-8CJL57G\SQLEXPRESS;Initial Catalog=GameStore;User ID=sa;Password=Anc@****;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False" `
 Microsoft.EntityFrameworkCore.SqlServer `
 -o Models `
 -c GameStoreDbContext `

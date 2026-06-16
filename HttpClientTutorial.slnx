@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="Notes.md" />
+    <File Path="Scaffolding.md" />
   </Folder>
   <Project Path="HttpClient.api/HttpClient.api.csproj" Id="67e1883e-151a-4852-a1cb-237a4ad174df" />
   <Project Path="HttpClient.Database/HttpClient.Database.csproj" Id="b5494e4e-b85a-462d-afec-f5aebf4f1fb1" />
