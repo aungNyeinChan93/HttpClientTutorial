@@ -1,3 +1,4 @@
+using FluentEmail.Smtp;
 using HttpClient.Database;
 using HttpClient.domain.Features.Email;
 using HttpClient.domain.Features.Game;
@@ -5,6 +6,8 @@ using HttpClient.domain.Features.Manager;
 using HttpClient.GameStoreDb.Models;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using System.Net;
+using System.Net.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,8 +41,16 @@ builder.Services.AddCors(options =>
 //FluentEmail
 string email = builder.Configuration["EmailSetting:Email"]!;
 string emailAppPassword = builder.Configuration["EmailSetting:Password"]!;
+var client = new SmtpClient("smtp.gmail.com")
+{
+    Port = 587,
+    EnableSsl = true,
+    Credentials = new NetworkCredential(
+        "your-email@gmail.com",
+        "your-app-password")
+};
 builder.Services.AddFluentEmail(email)
-    .AddSmtpSender("smtp.gmail.com", 587, email, emailAppPassword);
+    .AddSmtpSender("smtp.gmail.com", 587, email, emailAppPassword); 
 
 
 //Services
