@@ -1,0 +1,41 @@
+﻿@page "/games"
+@page "/games/lists"
+@using System.Text.Json
+@inject GameApiService GameApiService;
+
+@if (Games.Count >= 1)
+{
+    <h3>GameLists</h3>  
+    <pre>
+            @(JsonSerializer.Serialize(Games, new JsonSerializerOptions { WriteIndented = true }))
+        </pre>
+}
+else
+{
+    <p>Loading  ... </p>
+}
+
+
+@code {
+    public List<Game> Games { get; set; } = new();
+
+    private async Task LoadGames()
+    {
+        var result = await GameApiService.GetAllGamesAsync();
+        if (result is not null)
+        {
+            Games = [.. result];
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await this.LoadGames();
+            StateHasChanged();
+        }
+    }
+
+
+}

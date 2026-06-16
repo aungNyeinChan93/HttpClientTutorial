@@ -10,6 +10,8 @@ builder.Services.AddRazorComponents()
 //Api
 builder.Services.MapApi(builder.Configuration);
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

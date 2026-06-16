@@ -4,9 +4,9 @@ namespace HttpClientTutorial.client.Features.Quote
 {
     public class QuoteApiService
     {
-        private readonly HttpClient _httpClient;
+        private readonly System.Net.Http.HttpClient _httpClient;
 
-        public QuoteApiService(HttpClient httpClient)
+        public QuoteApiService(System.Net.Http.HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

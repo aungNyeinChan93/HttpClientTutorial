@@ -1,0 +1,59 @@
+﻿@page "/managers"
+@page "/managers/lists"
+@using System.Text.Json
+
+@inject ManagerApiService ManagerApiService;
+
+
+@if (Managers.Count <= 0)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <h3>ManagerList</h3>
+
+    <pre>
+        @(JsonSerializer.Serialize(Managers, new JsonSerializerOptions { WriteIndented = true }))
+    </pre>
+
+}
+
+@code {
+    public List<ManagerDto> Managers { get; set; } = new List<ManagerDto>();
+
+    public string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task LoadManagers()
+    {
+        var response = await ManagerApiService.GetAllManagersAsync();
+        if (response.IsError)
+        {
+            if (response.IsDataError)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+            if (response.IsNotFound)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+        }
+
+        if (response.IsSuccess)
+        {
+            var data = response.Data;
+            Managers = [.. data.Manager];
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await this.LoadManagers();
+            StateHasChanged();
+        }
+    }
+}

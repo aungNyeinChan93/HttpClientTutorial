@@ -7,10 +7,9 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
+// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<AppDbContext>(option =>
@@ -21,6 +20,17 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 builder.Services.AddDbContext<GameStoreDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("GameStore"));
+});
+
+//Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("client",policy =>
+    {
+        policy.WithOrigins("http://localhost:5246", "https://localhost:7189", "http://localhost:5246")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
 });
 
 builder.Services.AddScoped<IManagerService,ManagerService>();
@@ -35,6 +45,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.UseCors("client");
 
 app.UseHttpsRedirection();
 

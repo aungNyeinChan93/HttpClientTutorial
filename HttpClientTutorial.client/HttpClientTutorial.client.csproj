@@ -7,4 +7,9 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HttpClient.domain\HttpClient.domain.csproj" />
+    <ProjectReference Include="..\HttpClient.shared\HttpClient.shared.csproj" />
+  </ItemGroup>
+
 </Project>
