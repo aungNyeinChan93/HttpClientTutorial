@@ -1,0 +1,9 @@
+
+## 
+
+dotnet ef dbcontext scaffold `
+"Data Source=.;Initial Catalog=Authentication;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30" `
+Microsoft.EntityFrameworkCore.SqlServer `
+-o Models `
+-c AuthDatabase `
+-f
