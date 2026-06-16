@@ -1,6 +1,6 @@
 ﻿using HttpClientTutorial.client.Models;
 
-namespace HttpClientTutorial.client.Features
+namespace HttpClientTutorial.client.Features.Quote
 {
     public class QuoteApiService
     {

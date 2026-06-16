@@ -1,4 +1,4 @@
-﻿using HttpClientTutorial.client.Features;
+﻿using HttpClientTutorial.client.Features.Quote;
 
 namespace HttpClientTutorial.client.Extensions
 {
