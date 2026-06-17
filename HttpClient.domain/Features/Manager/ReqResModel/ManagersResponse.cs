@@ -7,6 +7,6 @@ namespace HttpClient.domain.Features.Manager.ReqResModel
 {
     public class ManagersResponse
     {
-        public List<ManagerDto>  Manager { get; set; }
+        public List<ManagerDto> Manager { get; set; } = new();
     }
 }

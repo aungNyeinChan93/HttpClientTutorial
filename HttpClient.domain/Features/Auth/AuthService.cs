@@ -81,7 +81,7 @@ namespace HttpClient.domain.Features.Auth
 
             var hashPassword = new PasswordHasher().HashPassword(request.Password);
 
-            var newUser = new User
+            var newUser = new Httpclient.AuthDatabase.Models.User
             {
                 Name = request.Name,
                 Email = request.Email,

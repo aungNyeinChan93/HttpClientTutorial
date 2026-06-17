@@ -12,4 +12,8 @@
     <ProjectReference Include="..\HttpClient.shared\HttpClient.shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Auth\" />
+  </ItemGroup>
+
 </Project>

@@ -2,6 +2,7 @@ using Httpclient.AuthDatabase.Models;
 using Httpclient.CookieAuth.WebApi.Extensions;
 using Httpclient.CookieAuth.WebApi.Middlewares;
 using HttpClient.domain.Features.Auth;
+using HttpClient.domain.Features.User;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Serilog;
@@ -33,14 +34,33 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 
+//Cors
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("client2", p =>
+    {
+        p.WithOrigins("http://localhost:5246", "https://localhost:7189")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
 
 //CookieAuth
 builder.Services.MapCookieAuth();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IAuthService,AuthService>();
+
+//Midlewares
 builder.Services.AddScoped<RequestLoggerMiddleware>();
 
+//Services
+builder.Services.AddScoped<IAuthService,AuthService>();
+builder.Services.AddScoped<UserService>();
 
+
+
+
+//App
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -50,6 +70,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.UseCors("client2");
 app.UseHttpsRedirection();
 app.UseMiddleware<RequestLoggerMiddleware>();
 
@@ -59,13 +80,6 @@ app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();
-
-
-app.MapGet("/api/users", (AuthDatabase db) =>
-{
-    var res = db.Users.AsNoTracking().ToList();
-    return res;
-});
 
 
 

@@ -1,0 +1,70 @@
+﻿@page "/users"
+@page "/users/lists"
+@using System.Text.Json
+@inject UserApiService UserApiservice;
+
+
+@if (Users is not null)
+{
+    <h3>UserList</h3>
+    <pre>
+        @(JsonSerializer.Serialize(Users, new JsonSerializerOptions { WriteIndented = true }))
+
+        </pre>
+}
+else
+{
+    <p>Loading ...</p>
+}
+
+@code {
+
+    public List<UserDto> Users { get; set; } = new();
+
+    public string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task LoadUsers()
+    {
+        var response = await UserApiservice.GetAllUsersAsync();
+
+        if (response.IsError)
+        {
+            if (response.IsNotFound)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+            if (response.IsValidationError)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+            if (response.IsSystemError)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+        }
+
+        if (response.IsSuccess)
+        {
+            var data = response.Data;
+            if (data.Users.Count <= 0)
+            {
+                ErrorMessage = "Users lists not found!";
+                return;
+            }
+            Users = [.. data.Users];
+
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await this.LoadUsers();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}

@@ -48,6 +48,7 @@ namespace HttpClient.domain.Mappers
             };
         }
 
+        // UserDto
         public static UserDto Change(this User user)
         {
             return new UserDto
