@@ -3,6 +3,7 @@
     <File Path="FluentEmail.md" />
     <File Path="Notes.md" />
     <File Path="Scaffolding.md" />
+    <File Path="Serilog.md" />
     <File Path="Test.txt" />
   </Folder>
   <Project Path="HttpClient.api/HttpClient.api.csproj" Id="67e1883e-151a-4852-a1cb-237a4ad174df" />

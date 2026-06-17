@@ -13,12 +13,13 @@ namespace Httpclient.CookieAuth.WebApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-
+        private readonly ILogger<AuthController> _logger;
         private readonly IAuthService _authservice;
 
-        public AuthController(IAuthService authservice)
+        public AuthController(IAuthService authservice, ILogger<AuthController> logger)
         {
             _authservice = authservice;
+            _logger = logger;
         }
 
 
@@ -33,20 +34,23 @@ namespace Httpclient.CookieAuth.WebApi.Controllers
             {
                 if (response.IsDataError)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(400, response.Message);
                 }
                 if (response.IsNotFound)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(404, response.Message);
                 }
                 if (response.IsDataError)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(500, response.Message);
                 }
                 if (!response.IsSystemError)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(500, response.Message);
-
                 }
             }
 
@@ -59,10 +63,12 @@ namespace Httpclient.CookieAuth.WebApi.Controllers
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme, response.Data.ClaimsPrincipal, authProperties);
 
+            _logger.LogInformation($"[AuthController:Login] {response.Message}");
+
             return Ok(response.Message);
 
         }
-
+            
         //Register
         [HttpPost]
         [Route("register")]
@@ -73,22 +79,26 @@ namespace Httpclient.CookieAuth.WebApi.Controllers
             {
                 if (response.IsDataError)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(400, response.Message);
                 }
                 if (response.IsNotFound)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(404, response.Message);
                 }
                 if (response.IsDataError)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(500, response.Message);
                 }
                 if (!response.IsSystemError)
                 {
+                    _logger.LogError($"[AuthController] {response.Message}");
                     return StatusCode(500, response.Message);
-
                 }
             }
+            _logger.LogInformation($"[AuthController:Register] {response.Message}");
             return Ok(response);
         }
 
@@ -112,6 +122,7 @@ namespace Httpclient.CookieAuth.WebApi.Controllers
             if (isAuthenticate)
             {
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                _logger.LogInformation("[AuthController:Logout] {Name} is Logout!",User.Identity.Name);
                 return Ok("logout success");
             }
             return BadRequest();

@@ -3,6 +3,7 @@ using Httpclient.CookieAuth.WebApi.Extensions;
 using HttpClient.domain.Features.Auth;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,23 @@ builder.Services.AddDbContext<AuthDatabase>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+
+//Serilog
+Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.File("logs/log-.txt",
+                    rollingInterval: RollingInterval.Hour,
+                    fileSizeLimitBytes: 10485760, // 10MB
+                    retainedFileCountLimit: 24)
+                .WriteTo.MSSqlServer(
+                    connectionString: builder.Configuration.GetConnectionString("LogDb"),
+                    tableName: "Logs",
+                    autoCreateSqlTable: true) 
+                .CreateLogger();
+
+builder.Host.UseSerilog();
+
+
 
 //CookieAuth
 builder.Services.MapCookieAuth();
@@ -44,4 +62,18 @@ app.MapGet("/api/users", (AuthDatabase db) =>
     return res;
 });
 
-app.Run();
+
+
+try
+{
+    Log.Information("Application starting up");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application start-up failed");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
