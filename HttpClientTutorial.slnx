@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="FluentEmail.md" />
+    <File Path="Middleware.md" />
     <File Path="Notes.md" />
     <File Path="Scaffolding.md" />
     <File Path="Serilog.md" />
