@@ -1,5 +1,6 @@
 using Httpclient.AuthDatabase.Models;
 using Httpclient.CookieAuth.WebApi.Extensions;
+using Httpclient.CookieAuth.WebApi.Middlewares;
 using HttpClient.domain.Features.Auth;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -37,6 +38,7 @@ builder.Host.UseSerilog();
 builder.Services.MapCookieAuth();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthService,AuthService>();
+builder.Services.AddScoped<RequestLoggerMiddleware>();
 
 
 var app = builder.Build();
@@ -49,6 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<RequestLoggerMiddleware>();
 
 app.UseSerilogRequestLogging();
 
