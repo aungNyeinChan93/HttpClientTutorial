@@ -14,9 +14,9 @@ namespace Httpclient.CookieAuth.WebApi.Controllers
     public class AuthController : ControllerBase
     {
 
-        private readonly AuthService _authservice;
+        private readonly IAuthService _authservice;
 
-        public AuthController(AuthService authservice)
+        public AuthController(IAuthService authservice)
         {
             _authservice = authservice;
         }

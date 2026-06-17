@@ -14,7 +14,7 @@ using System.Text;
 
 namespace HttpClient.domain.Features.Auth
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly AuthDatabase _context;
 
@@ -85,11 +85,11 @@ namespace HttpClient.domain.Features.Auth
             {
                 Name = request.Name,
                 Email = request.Email,
-                Password =hashPassword,
+                Password = hashPassword,
                 CreatedAt = DateTime.UtcNow,
             };
 
-             _context.Users.Add(newUser);
+            _context.Users.Add(newUser);
             var result = await _context.SaveChangesAsync();
 
             var data = new RegisterResponse
@@ -100,8 +100,8 @@ namespace HttpClient.domain.Features.Auth
             };
 
             responseModel = result >= 1
-                ? Result<RegisterResponse>.Success(data,"Register Success")
-                :Result<RegisterResponse>.SystemError("Register Fail");
+                ? Result<RegisterResponse>.Success(data, "Register Success")
+                : Result<RegisterResponse>.SystemError("Register Fail");
 
         skip:
             return responseModel;

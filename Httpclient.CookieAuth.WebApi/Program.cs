@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AuthDatabase>(options =>
 //CookieAuth
 builder.Services.MapCookieAuth();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<IAuthService,AuthService>();
 
 
 var app = builder.Build();
