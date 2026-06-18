@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
-    <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,12 +16,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Scalar.AspNetCore" Version="2.16.3" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.16.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Httpclient.AuthDatabase\Httpclient.AuthDatabase.csproj" />
     <ProjectReference Include="..\HttpClient.Database\HttpClient.Database.csproj" />
     <ProjectReference Include="..\HttpClient.domain\HttpClient.domain.csproj" />
+    <ProjectReference Include="..\HttpClient.GameStoreDb\HttpClient.GameStoreDb.csproj" />
     <ProjectReference Include="..\HttpClient.shared\HttpClient.shared.csproj" />
   </ItemGroup>
 

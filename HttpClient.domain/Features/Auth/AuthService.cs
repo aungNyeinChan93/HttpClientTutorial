@@ -2,9 +2,10 @@
 using HttpClient.domain.Features.Auth.ReqResModels;
 using HttpClient.domain.Mappers;
 using HttpClient.shared.Commons;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
+//using Microsoft.AspNet.Identity;
+//using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,35 +32,35 @@ namespace HttpClient.domain.Features.Auth
 
             var responseModel = new Result<LoginResponse>();
 
-            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == request.Email);
+        //    var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == request.Email);
 
-            if (user is null)
-            {
-                responseModel = Result<LoginResponse>.NotFoundError();
-                goto skip;
-            }
+        //    if (user is null)
+        //    {
+        //        responseModel = Result<LoginResponse>.NotFoundError();
+        //        goto skip;
+        //    }
 
-            var checkPassowrd = new PasswordHasher().VerifyHashedPassword(user.Password, request.Password);
+        //    var checkPassowrd = new PasswordHasher().VerifyHashedPassword(user.Password, request.Password);
 
-            if (checkPassowrd != PasswordVerificationResult.Success)
-            {
-                responseModel = Result<LoginResponse>.BadRequestError("Credential is invalid!");
-                goto skip;
-            }
+        //    if (checkPassowrd != Microsoft.AspNet.Identity.PasswordVerificationResult.Success)
+        //    {
+        //        responseModel = Result<LoginResponse>.BadRequestError("Credential is invalid!");
+        //        goto skip;
+        //    }
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name ,request.Name),
-                new Claim(ClaimTypes.Email,request.Email),
-            };
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Name ,request.Name),
+        //        new Claim(ClaimTypes.Email,request.Email),
+        //    };
 
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme ?? "Cookies");
+        //    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme ?? "Cookies");
 
-            var principal = new ClaimsPrincipal(identity);
+        //    var principal = new ClaimsPrincipal(identity);
 
-            responseModel = Result<LoginResponse>.Success(new LoginResponse { ClaimsPrincipal = principal });
+        //    responseModel = Result<LoginResponse>.Success(new LoginResponse { ClaimsPrincipal = principal });
 
-        skip:
+        //skip:
 
             return responseModel;
         }
@@ -71,39 +72,39 @@ namespace HttpClient.domain.Features.Auth
         {
             var responseModel = new Result<RegisterResponse>();
 
-            var isExist = await _context.Users.AnyAsync(x => x.Email == request.Email);
+        //    var isExist = await _context.Users.AnyAsync(x => x.Email == request.Email);
 
-            if (isExist)
-            {
-                responseModel = Result<RegisterResponse>.BadRequestError("User is Already Exist");
-                goto skip;
-            }
+        //    if (isExist)
+        //    {
+        //        responseModel = Result<RegisterResponse>.BadRequestError("User is Already Exist");
+        //        goto skip;
+        //    }
 
-            var hashPassword = new PasswordHasher().HashPassword(request.Password);
+        //    var hashPassword = new PasswordHasher().HashPassword(request.Password);
 
-            var newUser = new Httpclient.AuthDatabase.Models.User
-            {
-                Name = request.Name,
-                Email = request.Email,
-                Password = hashPassword,
-                CreatedAt = DateTime.UtcNow,
-            };
+        //    var newUser = new Httpclient.AuthDatabase.Models.User
+        //    {
+        //        Name = request.Name,
+        //        Email = request.Email,
+        //        Password = hashPassword,
+        //        CreatedAt = DateTime.UtcNow,
+        //    };
 
-            _context.Users.Add(newUser);
-            var result = await _context.SaveChangesAsync();
+        //    _context.Users.Add(newUser);
+        //    var result = await _context.SaveChangesAsync();
 
-            var data = new RegisterResponse
-            {
-                User = await _context.Users
-                .Where(x => x.Email == request.Email)
-                .Select(x => x.Change()).FirstOrDefaultAsync() ?? new(),
-            };
+        //    var data = new RegisterResponse
+        //    {
+        //        User = await _context.Users
+        //        .Where(x => x.Email == request.Email)
+        //        .Select(x => x.Change()).FirstOrDefaultAsync() ?? new(),
+        //    };
 
-            responseModel = result >= 1
-                ? Result<RegisterResponse>.Success(data, "Register Success")
-                : Result<RegisterResponse>.SystemError("Register Fail");
+        //    responseModel = result >= 1
+        //        ? Result<RegisterResponse>.Success(data, "Register Success")
+        //        : Result<RegisterResponse>.SystemError("Register Fail");
 
-        skip:
+        //skip:
             return responseModel;
 
         }
