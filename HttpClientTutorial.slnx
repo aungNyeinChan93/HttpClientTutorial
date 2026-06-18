@@ -14,6 +14,7 @@
   <Project Path="HttpClient.Database/HttpClient.Database.csproj" Id="b5494e4e-b85a-462d-afec-f5aebf4f1fb1" />
   <Project Path="HttpClient.domain/HttpClient.domain.csproj" Id="60786eb9-ec8a-429b-abbe-288e853703ab" />
   <Project Path="HttpClient.GameStoreDb/HttpClient.GameStoreDb.csproj" Id="0b96ffd0-a184-4abe-b251-cd0f7af30f43" />
+  <Project Path="HttpClient.JwtAuth.api/HttpClient.JwtAuth.api.csproj" Id="be3c71ea-0c33-482c-96ee-6537df488adf" />
   <Project Path="HttpClient.shared/HttpClient.shared.csproj" Id="a3dc002d-1a60-449a-bb40-d2e34545efff" />
   <Project Path="HttpClientTutorial.client/HttpClientTutorial.client.csproj" />
 </Solution>
