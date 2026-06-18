@@ -50,5 +50,38 @@ namespace HttpClient.JwtAuth.api.Controllers
             return Ok(response);
         }
 
+        //GenerateAccessToken
+        [HttpPost]
+        [Route("generateAccessToken")]
+        public async Task<IActionResult> GenerateAccessToken(GenerateAccessTokenRequest request)
+        {
+            var response = await _jwtAuthService.GenerateAccessTokenByRefreshTokenAsync(request);
+            if (response.IsError)
+            {
+                if (response.IsDataError)
+                {
+                    _logger.LogError($"[JwtAuthController] {response.Message}");
+                    return StatusCode(400, response.Message);
+                }
+                if (response.IsNotFound)
+                {
+                    _logger.LogError($"[JwtAuthController] {response.Message}");
+                    return StatusCode(404, response.Message);
+                }
+                if (response.IsDataError)
+                {
+                    _logger.LogError($"[JwtAuthController] {response.Message}");
+                    return StatusCode(500, response.Message);
+                }
+                if (!response.IsSystemError)
+                {
+                    _logger.LogError($"[JwtAuthController] {response.Message}");
+                    return StatusCode(500, response.Message);
+                }
+            }
+
+            return Ok(response);
+        }
+
     }
 }
