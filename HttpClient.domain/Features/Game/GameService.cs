@@ -1,4 +1,5 @@
-﻿using HttpClient.GameStoreDb.Models;
+﻿using HttpClient.domain.Features.Dapper;
+using HttpClient.GameStoreDb.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,12 @@ namespace HttpClient.domain.Features.Game
     {
         private GameStoreDbContext _context;
 
-        public GameService(GameStoreDbContext context)
+        private readonly IDapperService _dapperService;
+
+        public GameService(GameStoreDbContext context, IDapperService dapperService)
         {
             _context = context;
+            _dapperService = dapperService;
         }
 
 
@@ -23,6 +27,14 @@ namespace HttpClient.domain.Features.Game
                 .ToListAsync();
 
             return games;
+        }
+
+        //Get One 
+        public async Task<GameStoreDb.Models.Game> GetOneAsync(int id)
+        {
+            var query = @"select * from dbo.Games where Games.Id = @gameId";
+            var game = await _dapperService.QueryAsync<GameStoreDb.Models.Game>(query,new {gameId = id});
+            return game.FirstOrDefault()!;
         }
 
 

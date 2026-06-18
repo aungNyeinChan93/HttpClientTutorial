@@ -24,5 +24,14 @@ namespace HttpClient.api.Controllers
             var response = await _gameService.GetAllAsync();
             return Ok(response);
         }
+
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> GetById([FromRoute]int id)
+        {
+            var response = await _gameService.GetOneAsync(id);
+            return Ok(response);
+        }
     }
 }

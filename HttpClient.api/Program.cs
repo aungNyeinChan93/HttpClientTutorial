@@ -1,5 +1,6 @@
 using FluentEmail.Smtp;
 using HttpClient.Database;
+using HttpClient.domain.Features.Dapper;
 using HttpClient.domain.Features.Email;
 using HttpClient.domain.Features.Game;
 using HttpClient.domain.Features.Manager;
@@ -57,6 +58,7 @@ builder.Services.AddFluentEmail(email)
 builder.Services.AddScoped<IManagerService,ManagerService>();
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IDapperService, DapperService>();
 
 
 var app = builder.Build();
