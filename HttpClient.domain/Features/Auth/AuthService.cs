@@ -53,7 +53,7 @@ namespace HttpClient.domain.Features.Auth
                 new Claim(ClaimTypes.Email,request.Email),
             };
 
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme ?? "Cookies");
 
             var principal = new ClaimsPrincipal(identity);
 
