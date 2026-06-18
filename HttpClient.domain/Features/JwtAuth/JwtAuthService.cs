@@ -188,5 +188,21 @@ namespace HttpClient.domain.Features.JwtAuth
         skip:
             return responseModel;
         }
+        
+
+        //Logout
+        public async Task<bool> Logout(int id)
+        {
+            var refreshTokens = await _context.RefreshTokens
+                .AsNoTracking()
+                .Where(x=>x.UserId == id)
+                .ToListAsync();
+            Console.WriteLine("hit");
+             _context.RefreshTokens.RemoveRange(refreshTokens!);
+            var result = await _context.SaveChangesAsync();
+            return result >= 1 ? true : false;
+
+        }
+
     }
 }

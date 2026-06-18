@@ -83,5 +83,21 @@ namespace HttpClient.JwtAuth.api.Controllers
             return Ok(response);
         }
 
+
+        //Logout
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout([FromBody]int id)
+        {
+            var response =await _jwtAuthService.Logout(id);
+            if (!response)
+            {
+                return StatusCode(400, "Logout fail!");
+            }
+            return Ok("Logout success");
+        }
+
+
+
     }
 }
