@@ -56,7 +56,8 @@ namespace HttpClient.domain.Mappers
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                CreatedAt = user.CreatedAt  
+                CreatedAt = user.CreatedAt ,
+                RoleId = user.RoleId ?? null,
             };
         }
     }
