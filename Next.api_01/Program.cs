@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.MapDatabase();
+builder.MapExternalApi();
 
 var app = builder.Build();
 

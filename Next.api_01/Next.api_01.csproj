@@ -25,6 +25,7 @@
     <ProjectReference Include="..\HttpClient.domain\HttpClient.domain.csproj" />
     <ProjectReference Include="..\HttpClient.GameStoreDb\HttpClient.GameStoreDb.csproj" />
     <ProjectReference Include="..\HttpClient.shared\HttpClient.shared.csproj" />
+    <ProjectReference Include="..\Next.Domain\Next.Domain.csproj" />
   </ItemGroup>
 
 </Project>
