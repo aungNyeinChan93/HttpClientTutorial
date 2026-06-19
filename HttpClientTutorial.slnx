@@ -2,7 +2,9 @@
   <Folder Name="/Next/">
     <Project Path="Next.api_01/Next.api_01.csproj" Id="a63bec4d-3386-489a-acfe-1702103f28a9" />
   </Folder>
-  <Folder Name="/Solution Items/">
+  <Folder Name="/Notes/">
+    <File Path="AuthDatabase.sql" />
+    <File Path="databaseConnectionStr.txt" />
     <File Path="FluentEmail.md" />
     <File Path="JWT.md" />
     <File Path="Middleware.md" />
