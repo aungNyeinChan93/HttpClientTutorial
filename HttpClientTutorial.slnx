@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Next/">
     <Project Path="Next.api_01/Next.api_01.csproj" Id="a63bec4d-3386-489a-acfe-1702103f28a9" />
+    <Project Path="Next.Client/Next.Client.csproj" Id="27c990b6-aae3-4ab4-a931-364598389ba7" />
     <Project Path="Next.Domain/Next.Domain.csproj" Id="a66b9a65-5fac-4c6d-9582-1a6c21339ae8" />
   </Folder>
   <Folder Name="/Notes/">

@@ -11,6 +11,7 @@ builder.Services.AddOpenApi();
 
 builder.MapDatabase();
 builder.MapExternalApi();
+builder.MapCors();
 
 var app = builder.Build();
 
@@ -20,6 +21,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.UseCors("CilentOne");
 
 app.UseHttpsRedirection();
 

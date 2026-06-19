@@ -1,0 +1,69 @@
+﻿@page "/recipes"
+@page "/recipes/list"
+@using Newtonsoft.Json
+@inject RecipeService RecipeService;
+
+
+@if (Recipes is not null && Recipes.Count >= 1)
+{
+    <h3>RecipeList</h3>
+    <pre>
+        @(JsonConvert.SerializeObject(Recipes, Formatting.Indented))
+    </pre>
+
+}
+else
+{
+    <p>Loading ... </p>
+}
+
+
+@code {
+    public List<Recipe> Recipes { get; set; } = new();
+
+    public string ErrorMessage { get; set; } = string.Empty;
+
+    private async Task LoadRecipes()
+    {
+        var response = await RecipeService.GetAllRecipes();
+
+        if (response.IsError)
+        {
+            if (response.IsNotFound)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+            if (response.IsInvalidData)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+            if (response.IsValidationError)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+            if (response.IsSystemError)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+        }
+        if (response.IsSuccess)
+        {
+            Recipes = [.. response.Data.recipes];
+        }
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // return base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            await this.LoadRecipes();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}
